@@ -60,9 +60,9 @@ def logout(request):
     pass
 
 def edit(request):
-    if request.method == "POST":
-        try:
-            user = User.objects.get(id=request.COOKIES['user_id'])
+    try:
+        user = User.objects.get(id=request.COOKIES['user_id'])
+        if request.method == "POST":
             if user.token == request.COOKIES['token']:
                 token = random_token(20)
                 user.token = token
@@ -74,11 +74,11 @@ def edit(request):
                 response.set_cookie('user_id', user.id)
                 return response
                 pass
+        else:
+            return render(request, 'main/edit.html', {"user": user})
 
-        except User.DoesNotExist:
-            return HttpResponseNotFound("<h2>user not found</h2>")
-    else:
-        return render(request, 'main/edit.html')
+    except User.DoesNotExist:
+        return HttpResponseNotFound("<h2>user not found</h2>")
     pass
     pass
 
