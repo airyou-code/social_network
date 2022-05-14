@@ -15,4 +15,4 @@ class User(models.Model):
     dateTime = models.DateTimeField('dateTime', auto_now=True)
 
     def __str__(self):
-        return self.login
+        return f"{self.id}. {self.login}"
