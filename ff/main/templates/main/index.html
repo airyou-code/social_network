@@ -20,13 +20,40 @@
 
 </head>
 <script>
-
+    function edit() {
+        return location.href = "/edit";
+    }
+    function logout(){
+        return location.href = "/logout";
+    }
 </script>
 
 <body>
     <div class="row">
         <div class="col-3"></div>
-        <div class="col-6">Login: {{ user.login }}</div>
+        <div class="col-6">
+            <div style="background-color: rgb(209, 209, 209); border-radius: 20px; text-align: center; height: 500px; margin-top: 30px;">
+                <h1>User{{user.id}}: {{ user.login }}</h2>
+                <h3> description: {{ user.description }}</h3>
+                <div class="row">
+                    <div class="col-6">
+                        <div id="res_b"
+                            style="background-color: #ff8049; border-radius: 10px; text-align: center; height: 40px; max-width: 150px; margin-top: 20px; margin-left: auto; margin-right: auto;"
+                            onclick="edit()">
+                            <h4 style="padding-top: 5px;" >Edit</h4>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div id="res_b"
+                            style="background-color: #ff8049; border-radius: 10px; text-align: center; height: 40px; max-width: 150px; margin-top: 20px; margin-left: auto; margin-right: auto;"
+                            onclick="logout()">
+                            <h4 style="padding-top: 5px;">Log out</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <div class="col-3"></div>
     </div>
 </body>
