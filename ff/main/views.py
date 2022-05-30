@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseNotFound
 from django.http import HttpResponseRedirect
 from user.models import User
+from main.forms import DocumentForm
 import random
 import string
 
@@ -73,14 +74,19 @@ def edit(request):
                     user.token = token
                     user.login = request.POST.get("login")
                     user.description = request.POST.get("description")
+                    # user.profImg = request.FILES.get("photo")
                     user.save()
+                    form = DocumentForm(request.POST, request.FILES)
+                    if form.is_valid():
+                        form.save()
                     response = HttpResponseRedirect(f"/{user.id}")
                     response.set_cookie('token', token)
                     response.set_cookie('user_id', user.id)
                     return response
                     pass
             else:
-                return render(request, 'main/edit.html', {"user": user})
+                form = DocumentForm()
+                return render(request, 'main/edit.html', {"user": user,"form" : form})
 
         except User.DoesNotExist:
             return HttpResponseNotFound("<h2>user not found</h2>")
